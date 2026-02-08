@@ -14,7 +14,7 @@ cd ComfyUI/custom_nodes/
 2. Clone this repository:
 
 ```bash
-git clone https://github.com/YourUsername/ComfyUI-Ts-Utility-Nodes.git
+git clone https://github.com/arguments4u/ComfyUI-Ts-Utility-Nodes.git
 
 ```
 
@@ -67,7 +67,7 @@ cd ComfyUI/custom_nodes/
 
 2. このリポジトリをクローンします。
 ```bash
-git clone https://github.com/YourUsername/ComfyUI-LoadImage-ClipSnapshot.git
+git clone https://github.com/arguments4u/ComfyUI-LoadImage-ClipSnapshot.git
 
 ```
 
