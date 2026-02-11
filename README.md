@@ -37,7 +37,23 @@ This ensures that the correct data is processed even if your clipboard is overwr
 
 The nodes also support clipboard data that contains direct **file paths** or **URLs** to image files.
 
-### Key Features
+#### Input/Output
+
+* Load Image RGB (Clip Snapshot)
+    * Inputs:
+        * default_image (IMAGE): the default image output when clipboard data cannot be imported as an image
+    * Outputs:
+        * image (IMAGE): the image loaded from snapshot
+        * filepath (STRING): path to the snapshot
+* Load Image RGBA (Clip Snapshot)
+    * Inputs:
+        * default_image (IMAGE): the default image output when clipboard data cannot be imported as an image
+    * Outputs:
+        * image (IMAGE): the image loaded from color channel of snapshot
+        * mask (MASK): the mask loaded from alpha channel of snapshot
+        * filepath (STRING): path to the snapshot
+
+#### Key Features
 
 Upon queueing, the node resolves the clipboard content into a local file path and writes it to a specific entry in `extra_pnginfo`*:
 **Path: `extra_pnginfo['extra_data']['extra_pnginfo']['ts_utility_nodes']['path_to_input_image']*`
@@ -46,7 +62,7 @@ Upon queueing, the node resolves the clipboard content into a local file path an
 * **URL:** Downloads the image from the specified URL to the `input/pasted` folder and retrieves its path.
 * **File Path:** Uses the existing file path directly.
 
-### Specifications
+#### Specifications
 
 * **Storage Location:** `ComfyUI/input/pasted` (Consistent with the standard ComfyUI `Ctrl+V` feature).
 * **Naming Convention:** `image_%Y-%m-%d_%H-%M-%S.png` (e.g., `image_2024-03-21_15-30-45.png`).
@@ -88,7 +104,23 @@ pip install -r requirements.txt
 
 また、クリップボード上のデータが画像ファイルへのファイルパスまたはURLである場合にも対応しています。
 
-### 主な機能
+#### 入出力
+
+* Load Image RGB (Clip Snapshot)
+    * Inputs:
+        * default_image (IMAGE): the default image output when clipboard data cannot be imported as an image
+    * Outputs:
+        * image (IMAGE): the image loaded from snapshot
+        * filepath (STRING): path to the snapshot
+* Load Image RGBA (Clip Snapshot)
+    * Inputs:
+        * default_image (IMAGE): the default image output when clipboard data cannot be imported as an image
+    * Outputs:
+        * image (IMAGE): the image loaded from color channel of snapshot
+        * mask (MASK): the mask loaded from alpha channel of snapshot
+        * filepath (STRING): path to the snapshot
+
+#### 主な機能
 
 クリップボードの中身に応じて、キューイング時に以下の通りパスの取得を行い、取得したパスをextra_pnginfoの所定のパス※に書き込みます。<br>
 ※extra_pnginfo['extra_data']['extra_pnginfo']['ts_utility_nodes']['path_to_input_image']
@@ -97,7 +129,7 @@ pip install -r requirements.txt
 * **URL:** 指定されたURLから画像を `input/pasted` にダウンロードし、そのパスを取得。
 * **ファイルパス:** そのパスをそのまま取得。
 
-### 仕様
+#### 仕様
 
 * **保存先:** `ComfyUI/input/pasted` (標準のCtrl+V機能と共通)
 * **ファイル命名規則:** `image_%Y-%m-%d_%H-%M-%S.png` (例: `image_2024-03-21_15-30-45.png`)
