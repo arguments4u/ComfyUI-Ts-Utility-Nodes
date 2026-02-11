@@ -90,7 +90,7 @@ pip install -r requirements.txt
 
 ### 主な機能
 
-クリップボードの中身に応じて、キューイング時に以下の通りパスの取得を行い、取得したパスをextra_pnginfoの所定のパス※に書き込みます。
+クリップボードの中身に応じて、キューイング時に以下の通りパスの取得を行い、取得したパスをextra_pnginfoの所定のパス※に書き込みます。<br>
 ※extra_pnginfo['extra_data']['extra_pnginfo']['ts_utility_nodes']['path_to_input_image']
 
 * **画像データ:** `input/pasted` フォルダに画像データを保存し、そのパスを取得
