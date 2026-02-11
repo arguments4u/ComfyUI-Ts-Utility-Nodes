@@ -27,7 +27,7 @@ class TsLoadImageClipSnapshotBase(ABC):
             "hidden":{"extra_pnginfo": "EXTRA_PNGINFO"}
             }
     
-    def execute_impl(self,extra_pnginfo:dict, mode:str, default_image:torch.Tensor|None)->tuple[torch.Tensor,str]|tuple[torch.Tensor,torch.Tensor,str]:
+    def execute_impl(self,extra_pnginfo:dict, default_image:torch.Tensor|None, mode:str)->tuple[torch.Tensor,str]|tuple[torch.Tensor,torch.Tensor,str]:
         clip_snapshot = extra_pnginfo_interface.get_clip_snapshot(extra_pnginfo)
         
         path = clip_snapshot['path']
@@ -51,11 +51,11 @@ class TsLoadImageClipSnapshotBase(ABC):
             return (image, path)
         
     @abstractmethod
-    def execute(self, extra_pnginfo:dict, default_image=None):
+    def execute(self, default_image:torch.Tensor|None, extra_pnginfo):
         pass
 
     @classmethod
-    def IS_CHANGED(cls, extra_pnginfo):
+    def IS_CHANGED(cls, default_image:torch.Tensor|None=None, extra_pnginfo=None):
         # This value will be compared with previous 'IS_CHANGED' outputs
         # If inequal, then this node will be considered as modified
         clip_snapshot = extra_pnginfo_interface.get_clip_snapshot(extra_pnginfo)
@@ -76,8 +76,8 @@ class TsLoadImageRGBClipSnapshot(TsLoadImageClipSnapshotBase):
     RETURN_TYPES = ("IMAGE","STRING")
     RETURN_NAMES = ("image", "filepath")
     
-    def execute(self, extra_pnginfo:dict, default_image:torch.Tensor|None):
-        return super().execute_impl(extra_pnginfo, "RGB", default_image)
+    def execute(self, default_image:torch.Tensor|None=None, extra_pnginfo=None):
+        return super().execute_impl(extra_pnginfo, default_image, "RGB")
 
 class TsLoadImageRGBAClipSnapshot(TsLoadImageClipSnapshotBase):
     """
@@ -95,8 +95,8 @@ class TsLoadImageRGBAClipSnapshot(TsLoadImageClipSnapshotBase):
     RETURN_TYPES = ("IMAGE", "MASK", "STRING")
     RETURN_NAMES = ("image", "mask", "filepath")
     
-    def execute(self, extra_pnginfo, default_image:torch.Tensor|None):
-        return super().execute_impl(extra_pnginfo, "RGBA", default_image)
+    def execute(self, default_image:torch.Tensor|None=None, extra_pnginfo=None):
+        return super().execute_impl(extra_pnginfo, default_image, "RGBA")
 
 NODE_CLASS_MAPPINGS = {
     "TsLoadImageRGBClipSnapshot":TsLoadImageRGBClipSnapshot,
